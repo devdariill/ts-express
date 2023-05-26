@@ -10,10 +10,17 @@ const cleanFileName = (fileName: string) => {
 
 const PATH_ROUTESR = `${__dirname}`
 readdirSync(PATH_ROUTESR).filter((file) => {
-  console.log(file)
+  console.log('🚀 ~ file: index.ts:13 ~ readdirSync ~ file:', file)
   const fileName = cleanFileName(file)
-  if (fileName === 'index') return false
-  console.log(fileName)
+  if (fileName == null) return false
+  if (fileName !== 'index') {
+    import (`./${fileName}.routes`).then((module) => {
+      router.use(`/${fileName}`, module.router)
+    }).catch((e) => {
+      console.log('🚀 ~ file: index.ts:20 ~ import ~ e:', e)
+    })
+  }
+  console.log('🚀 ~ file: index.ts:15 ~ readdirSync ~ fileName:', fileName)
   return true
 })
 
