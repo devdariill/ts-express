@@ -2,7 +2,7 @@ import cors from 'cors'
 import express from 'express'
 import { router } from './routes/'
 
-// import 'dontenv/config'
+import 'dotenv/config'
 
 const PORT = process.env.PORT ?? 3000
 
