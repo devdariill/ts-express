@@ -1,6 +1,6 @@
 import cors from 'cors'
 import express from 'express'
-import { router } from './routes/'
+import itemsRoutes from './routes/items.routes'
 
 import 'dotenv/config'
 
@@ -14,6 +14,6 @@ app.use(express.json())
 
 dbConnect().then(() => console.log('Database connected')).catch((e) => console.log('Database error', e))
 
-app.use(router)
+app.use('/items', itemsRoutes)
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
