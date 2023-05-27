@@ -9,7 +9,11 @@ const getCars = async () => {
   const response = await ItemModeel.find({})
   return response
 }
+const getCar = async (id: string) => {
+  const response = await ItemModeel.findOne({ _id: id })
+  return response
+}
 
-export { getCars, insertCar }
+export { getCar, getCars, insertCar }
 // eslint-disable-next-line no-multiple-empty-lines
 

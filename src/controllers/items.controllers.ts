@@ -1,12 +1,15 @@
 import { Request, Response } from 'express'
-import { getCars, insertCar } from '../services/item.service'
+import { getCar, getCars, insertCar } from '../services/item.service'
 import { handleHttp } from '../utils/error.handle'
 
-const getItem = (req: Request, res: Response) => {
+const getItem = async (req: Request, res: Response) => {
   try {
-    const id = req.params.id
-    console.log('🚀 ~ file: items.controllers.ts:5 ~ getItem ~ id', id)
-    res.json({ id })
+    const { id } = req.params
+    const car = await getCar(id)
+    if (car == null) {
+      return handleHttp(res, 'CAR_NOT_FOUND')
+    }
+    res.json({ car })
   } catch (error) {
     console.log('🚀 ~ file: items.controllers.ts:7 ~ getItem ~ error:', error)
     handleHttp(res, 'ERROR_GET_ITEM', error)
@@ -15,7 +18,7 @@ const getItem = (req: Request, res: Response) => {
 const getItems = async (req: Request, res: Response) => {
   try {
     const items = await getCars()
-    res.json({ items })
+    return res.json({ items })
     // res.send(items)
   } catch (error) {
     handleHttp(res, 'ERROR_GET_ITEMS', error)
