@@ -26,7 +26,7 @@ const ItemSchema = new Schema<Car>(
   },
   {
     timestamps: true,
-    versionKey: false
+    versionKey: false // data by version like github
   }
 )
 
