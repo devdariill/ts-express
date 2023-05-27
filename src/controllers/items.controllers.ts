@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { getCar, getCars, insertCar } from '../services/item.service'
+import { deleteCar, getCar, getCars, insertCar, updateCar } from '../services/item.service'
 import { handleHttp } from '../utils/error.handle'
 
 const getItem = async (req: Request, res: Response) => {
@@ -25,10 +25,11 @@ const getItems = async (req: Request, res: Response) => {
     console.log('🚀 ~ file: items.controllers.ts:16 ~ getItems ~ error:', error)
   }
 }
-const updateItem = (req: Request, res: Response) => {
+const updateItem = async (req: Request, res: Response) => {
   try {
     const body = req.body
-    res.json({ body })
+    const response = await updateCar(body._id, body)
+    res.json({ response })
   } catch (error) {
     console.log('🚀 ~ file: items.controllers.ts:24 ~ updateItem ~ error:', error)
     handleHttp(res, 'ERROR_UPDATE_ITEM', error)
@@ -44,9 +45,10 @@ const postItem = async (req: Request, res: Response) => {
     handleHttp(res, 'ERROR_POST_ITEM', error)
   }
 }
-const deleteItem = (req: Request, res: Response) => {
+const deleteItem = async ({ params }: Request, res: Response) => {
   try {
-    res.json('deleteItem')
+    const response = await deleteCar(params.id)
+    return res.send(response)
   } catch (error) {
     console.log('🚀 ~ file: items.controllers.ts:40 ~ deleteItem ~ error:', error)
     handleHttp(res, 'ERROR_DELETE_ITEM', error)
