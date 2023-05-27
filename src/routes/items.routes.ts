@@ -7,7 +7,7 @@ router.get('/:id', getItem)
 router.get('/', getItems)
 router.put('/', updateItem)
 router.post('/', postItem)
-router.delete('/', deleteItem)
+router.delete('/:id', deleteItem)
 
 export default router
 // eslint-disable-next-line no-multiple-empty-lines
