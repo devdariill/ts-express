@@ -5,6 +5,11 @@ const insertCar = async (item: Car) => {
   const responseInsert = await ItemModeel.create(item)
   return responseInsert
 }
-export { insertCar }
+const getCars = async () => {
+  const response = await ItemModeel.find({})
+  return response
+}
+
+export { getCars, insertCar }
 // eslint-disable-next-line no-multiple-empty-lines
 

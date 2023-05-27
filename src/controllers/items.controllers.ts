@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { insertCar } from '../services/item.service'
+import { getCars, insertCar } from '../services/item.service'
 import { handleHttp } from '../utils/error.handle'
 
 const getItem = (req: Request, res: Response) => {
@@ -12,9 +12,11 @@ const getItem = (req: Request, res: Response) => {
     handleHttp(res, 'ERROR_GET_ITEM', error)
   }
 }
-const getItems = (req: Request, res: Response) => {
+const getItems = async (req: Request, res: Response) => {
   try {
-    res.json({ items: [] })
+    const items = await getCars()
+    res.json({ items })
+    // res.send(items)
   } catch (error) {
     handleHttp(res, 'ERROR_GET_ITEMS', error)
     console.log('🚀 ~ file: items.controllers.ts:16 ~ getItems ~ error:', error)
